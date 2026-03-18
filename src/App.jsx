@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -44,8 +44,23 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
+  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
+
+  useEffect(() => {
+    const updateCursor = (e) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+    };
+    document.addEventListener('mousemove', updateCursor);
+    return () => document.removeEventListener('mousemove', updateCursor);
+  }, []);
+
   return (
     <main className='overflow-x-hidden min-h-screen w-full font-sans relative'>
+      {/* Custom Diamond Cursor */}
+      <div
+        className='diamond-cursor'
+        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
+      />
       {/* Dark Background Layer */}
       <div
         className="fixed inset-0 z-0"
@@ -56,8 +71,8 @@ const App = () => {
       <div className='relative z-10'>
         <UpdateFollower
         mouseOptions={{
-          backgroundColor: "white",
-          zIndex: 10,
+          backgroundColor: "transparent",
+          zIndex: 0,
           followSpeed: 1.5,
         }}
         >

@@ -345,4 +345,35 @@
     -webkit-text-fill-color: transparent;
     font-weight: 700;
   }
+
+  /* Custom diamond cursor */
+  * {
+    cursor: none !important;
+  }
+
+  .diamond-cursor {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    background: white;
+    transform: translate(-50%, -50%) rotate(45deg);
+    pointer-events: none;
+    z-index: 99999;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.2);
+    transition: width 0.15s ease, height 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* Product hover mask overlay - slides from top to bottom with light-grey */
+  .product-mask-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(211, 211, 211, 0.35);
+    transform: translateY(-100%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+  }
+
+  .group:hover .product-mask-overlay {
+    transform: translateY(0);
+  }
 }
